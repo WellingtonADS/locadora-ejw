@@ -1,7 +1,7 @@
 package telas;
 
 import javax.swing.*;
-import cadastro.CadastroPessoa;
+import cadastro.CadastroPessoa; // Add the missing import statement for CadastroPessoa
 import java.awt.*;
 import java.awt.event.*;
 
@@ -21,26 +21,39 @@ public class TelaCadastroPessoa extends JFrame {
         setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(4, 2));
+        mainPanel.setLayout(new GridLayout(5, 2, 0, 6));
+        
+        // Define a margem interna da tela principal
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        
+        Font font = new Font("Arial", Font.PLAIN, 12);
 
         JLabel nomeLabel = new JLabel("Nome:");
+        
+        nomeLabel.setFont(font);
         nomeTextField = new JTextField();
+        nomeTextField.setFont(font);
         mainPanel.add(nomeLabel);
         mainPanel.add(nomeTextField);
 
         JLabel enderecoLabel = new JLabel("Endereço:");
+        enderecoLabel.setFont(font);
         enderecoTextField = new JTextField();
+        enderecoTextField.setFont(font);
         mainPanel.add(enderecoLabel);
         mainPanel.add(enderecoTextField);
 
         JLabel telefoneLabel = new JLabel("Telefone:");
+        telefoneLabel.setFont(font);
         telefoneTextField = new JTextField();
+        telefoneTextField.setFont(font);
         mainPanel.add(telefoneLabel);
         mainPanel.add(telefoneTextField);
 
        
 
         JButton cadastrarButton = new JButton("Cadastrar");
+        cadastrarButton.setFont(font);
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -50,6 +63,7 @@ public class TelaCadastroPessoa extends JFrame {
         mainPanel.add(cadastrarButton);
 
         JButton btnVoltar = new JButton("Voltar");
+        btnVoltar.setFont(font);
         btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

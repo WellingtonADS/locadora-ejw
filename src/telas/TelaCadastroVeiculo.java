@@ -18,31 +18,48 @@ public class TelaCadastroVeiculo extends JFrame {
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        
+        
 
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(6, 2));
+        mainPanel.setLayout(new GridLayout(5, 2, 0, 6));
+        
+        // Define a margem interna da tela principal
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
+        
+        Font font = new Font("Arial", Font.PLAIN, 12);
+        
         JLabel modeloLabel = new JLabel("Modelo:");
+        modeloLabel.setFont(font);
         modeloTextField = new JTextField();
+        modeloTextField.setFont(font);
         mainPanel.add(modeloLabel);
         mainPanel.add(modeloTextField);
 
         JLabel marcaLabel = new JLabel("Marca:");
+        marcaLabel.setFont(font);
         marcaTextField = new JTextField();
+        marcaTextField.setFont(font);
         mainPanel.add(marcaLabel);
         mainPanel.add(marcaTextField);
 
         JLabel anoLabel = new JLabel("Ano:");
+        anoLabel.setFont(font);
         anoTextField = new JTextField();
+        anoTextField.setFont(font);
         mainPanel.add(anoLabel);
         mainPanel.add(anoTextField);
 
         JLabel valorLabel = new JLabel("Valor da Diária:");
+        valorLabel.setFont(font);
         valorTextField = new JTextField();
+        valorTextField.setFont(font);
         mainPanel.add(valorLabel);
         mainPanel.add(valorTextField);
 
         JButton cadastrarButton = new JButton("Cadastrar");
+        cadastrarButton.setFont(font);
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,6 +69,7 @@ public class TelaCadastroVeiculo extends JFrame {
         mainPanel.add(cadastrarButton);
         
         JButton voltarButton = new JButton("Voltar");
+        voltarButton.setFont(font);
         voltarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

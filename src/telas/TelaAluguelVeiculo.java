@@ -19,11 +19,18 @@ public class TelaAluguelVeiculo extends JFrame {
         setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(6, 2));
+        mainPanel.setLayout(new GridLayout(5, 2, 0, 6));
+        
+        // Define a margem interna da tela principal
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+
+        
+        Font font = new Font("Arial", Font.PLAIN, 12);
 
         JLabel pessoaLabel = new JLabel("Pessoa:");
+        pessoaLabel.setFont(font);
         pessoaComboBox = new JComboBox<>();
-        // Adicione aqui a lógica para preencher o JComboBox com as pessoas cadastradas
+        
         mainPanel.add(pessoaLabel);
         mainPanel.add(pessoaComboBox);
 
