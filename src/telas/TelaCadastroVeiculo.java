@@ -3,33 +3,29 @@ package telas;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import cadastro.CadastroVeiculo;
 
 public class TelaCadastroVeiculo extends JFrame {
     private JTextField modeloTextField;
     private JTextField marcaTextField;
     private JTextField anoTextField;
     private JTextField valorTextField;
-    private cadastro.CadastroVeiculo cadastroVeiculo;
+    private CadastroVeiculo cadastroVeiculo;
 
     public TelaCadastroVeiculo() {
-        cadastroVeiculo = new cadastro.CadastroVeiculo(); // Inicializa a instância de CadastroVeiculo
+        cadastroVeiculo = new CadastroVeiculo();
 
         setTitle("Cadastro de Veículo");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
-        
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(5, 2, 0, 6));
-        
-        // Define a margem interna da tela principal
         mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
-        
         Font font = new Font("Arial", Font.PLAIN, 12);
-        
+
         JLabel modeloLabel = new JLabel("Modelo:");
         modeloLabel.setFont(font);
         modeloTextField = new JTextField();
@@ -67,17 +63,14 @@ public class TelaCadastroVeiculo extends JFrame {
             }
         });
         mainPanel.add(cadastrarButton);
-        
+
         JButton voltarButton = new JButton("Voltar");
         voltarButton.setFont(font);
         voltarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Oculta a tela atual
                 setVisible(false);
-                // Libera os recursos da tela atual
                 dispose();
-                // Cria uma instância da tela principal e a torna visível
                 TelaPrincipal telaPrincipal = new TelaPrincipal();
                 telaPrincipal.setVisible(true);
             }
@@ -99,7 +92,6 @@ public class TelaCadastroVeiculo extends JFrame {
             return;
         }
 
-        // Chama o método de cadastro da classe CadastroVeiculo
         cadastroVeiculo.cadastrarVeiculo(modelo, marca, ano, valorDiaria);
 
         JOptionPane.showMessageDialog(this, "Veículo cadastrado com sucesso!");

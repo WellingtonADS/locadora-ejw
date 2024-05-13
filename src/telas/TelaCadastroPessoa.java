@@ -1,18 +1,20 @@
 package telas;
 
 import javax.swing.*;
-import cadastro.CadastroPessoa; // Add the missing import statement for CadastroPessoa
 import java.awt.*;
 import java.awt.event.*;
+import cadastro.CadastroPessoa;
 
+/**
+ * Classe responsável por exibir a tela de cadastro de pessoa.
+ */
 public class TelaCadastroPessoa extends JFrame {
     private JTextField nomeTextField;
     private JTextField enderecoTextField;
     private JTextField telefoneTextField;
-    private CadastroPessoa cadastroPessoa; // Instância da classe CadastroPessoa
+    private CadastroPessoa cadastroPessoa;
 
     public TelaCadastroPessoa() {
-        // Inicializa a instância de CadastroPessoa
         cadastroPessoa = new CadastroPessoa();
 
         setTitle("Cadastro de Pessoa");
@@ -23,13 +25,11 @@ public class TelaCadastroPessoa extends JFrame {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(5, 2, 0, 6));
         
-        // Define a margem interna da tela principal
         mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         
         Font font = new Font("Arial", Font.PLAIN, 12);
 
         JLabel nomeLabel = new JLabel("Nome:");
-        
         nomeLabel.setFont(font);
         nomeTextField = new JTextField();
         nomeTextField.setFont(font);
@@ -50,14 +50,12 @@ public class TelaCadastroPessoa extends JFrame {
         mainPanel.add(telefoneLabel);
         mainPanel.add(telefoneTextField);
 
-       
-
         JButton cadastrarButton = new JButton("Cadastrar");
         cadastrarButton.setFont(font);
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cadastrarPessoa(); // Chama o método cadastrarPessoa da classe TelaCadastroPessoa
+                cadastrarPessoa();
             }
         });
         mainPanel.add(cadastrarButton);
@@ -67,11 +65,8 @@ public class TelaCadastroPessoa extends JFrame {
         btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Oculta a tela atual
                 setVisible(false);
-                // Libera os recursos da tela atual
                 dispose();
-                // Cria uma instância da tela principal e a torna visível
                 TelaPrincipal telaPrincipal = new TelaPrincipal();
                 telaPrincipal.setVisible(true);
             }
@@ -87,13 +82,11 @@ public class TelaCadastroPessoa extends JFrame {
         String endereco = enderecoTextField.getText();
         String telefone = telefoneTextField.getText();
 
-        // Verifica se todos os campos obrigatórios estão preenchidos
         if (nome.isEmpty() || endereco.isEmpty() || telefone.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return; // Não realiza o cadastro se algum campo estiver vazio
+            return;
         }
 
-        // Chama o método de cadastro da classe CadastroPessoa
         cadastroPessoa.cadastrarPessoa(nome, endereco, telefone);
 
         JOptionPane.showMessageDialog(this, "Pessoa cadastrada com sucesso!");

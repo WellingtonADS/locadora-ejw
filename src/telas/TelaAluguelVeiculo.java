@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+
 public class TelaAluguelVeiculo extends JFrame {
     private JComboBox<String> pessoaComboBox;
     private JComboBox<String> veiculoComboBox;
@@ -20,23 +21,20 @@ public class TelaAluguelVeiculo extends JFrame {
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(5, 2, 0, 6));
-        
-        // Define a margem interna da tela principal
+
         mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
-        
         Font font = new Font("Arial", Font.PLAIN, 12);
 
         JLabel pessoaLabel = new JLabel("Pessoa:");
         pessoaLabel.setFont(font);
         pessoaComboBox = new JComboBox<>();
-        
+
         mainPanel.add(pessoaLabel);
         mainPanel.add(pessoaComboBox);
 
         JLabel veiculoLabel = new JLabel("Veículo:");
         veiculoComboBox = new JComboBox<>();
-        // Adicione aqui a lógica para preencher o JComboBox com os veículos cadastrados
         mainPanel.add(veiculoLabel);
         mainPanel.add(veiculoComboBox);
 
@@ -58,16 +56,13 @@ public class TelaAluguelVeiculo extends JFrame {
             }
         });
         mainPanel.add(confirmarButton);
-        
+
         voltarButton = new JButton("Voltar");
         voltarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Oculta a tela atual
                 setVisible(false);
-                // Libera os recursos da tela atual
                 dispose();
-                // Cria uma instância da tela principal e a torna visível
                 TelaPrincipal telaPrincipal = new TelaPrincipal();
                 telaPrincipal.setVisible(true);
             }
@@ -84,13 +79,10 @@ public class TelaAluguelVeiculo extends JFrame {
         String dataInicio = dataInicioTextField.getText();
         String dataFim = dataFimTextField.getText();
 
-        // Verifica se todos os campos obrigatórios estão preenchidos
         if (pessoaSelecionada == null || veiculoSelecionado == null || dataInicio.isEmpty() || dataFim.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return; // Não realiza o aluguel se algum campo estiver vazio
+            return;
         }
-
-        // Adicione aqui a lógica para confirmar o aluguel e calcular o valor total
 
         JOptionPane.showMessageDialog(this, "Aluguel confirmado com sucesso!");
     }
