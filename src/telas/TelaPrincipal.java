@@ -4,9 +4,6 @@ import javax.swing.*; // Importação da classe Swing
 import java.awt.*; // Importação da classe AWT
 import java.awt.event.*; // Importação da classe de eventos
 
-
-
-
 /**
  * Classe que representa a tela principal da aplicação.
  */
