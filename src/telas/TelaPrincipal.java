@@ -11,11 +11,13 @@ import java.awt.event.*; // Importação da classe de eventos
  * Classe que representa a tela principal da aplicação.
  */
 public class TelaPrincipal extends JFrame { // Classe TelaPrincipal que herda da classe JFrame
+   
     private JButton btnCadastroPessoa; // Botão para cadastro de pessoa
     private JButton btnCadastroVeiculo; // Botão para cadastro de veículo
     private JButton btnAluguelVeiculo; // Botão para aluguel de veículo
 
     public TelaPrincipal() { // Construtor da classe TelaPrincipal
+        
         setTitle("Tela Principal"); // Define o título da janela
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Define o comportamento ao fechar a janela
         setSize(400, 300); // Define o tamanho da janela
