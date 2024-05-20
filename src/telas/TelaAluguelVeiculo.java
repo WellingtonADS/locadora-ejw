@@ -20,6 +20,9 @@ public class TelaAluguelVeiculo extends JFrame {
     private CadastroCliente cadastroCliente;
     private CadastroVeiculo cadastroVeiculo;
 
+    /**
+     * 
+     */
     public TelaAluguelVeiculo() {
         cadastroCliente = new CadastroCliente();
         cadastroVeiculo = new CadastroVeiculo();
