@@ -4,10 +4,13 @@ package modelo;
 /**
  * Classe que representa uma pessoa.
  */
-public class Pessoa {
+public class Cliente {
     private String nome;
     private String endereco;
     private String telefone;
+    private String tipoPessoa; // "PJ" para pessoa jurídica ou "PF" para pessoa física
+
+    
 
     // Construtor
 
@@ -15,7 +18,7 @@ public class Pessoa {
      * Construtor vazio da classe Pessoa.
      * Você pode inicializar os atributos com valores padrão aqui, se desejar.
      */
-    public Pessoa() {
+    public Cliente() {
     }
 
     /**
@@ -24,11 +27,13 @@ public class Pessoa {
      * @param nome     O nome da pessoa.
      * @param endereco O endereço da pessoa.
      * @param telefone O telefone da pessoa.
+     * @param tipoPessoa O tipo de pessoa (PF ou PJ).
      */
-    public Pessoa(String nome, String endereco, String telefone) {
+    public Cliente(String nome, String endereco, String telefone, String tipoPessoa) {
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
+        this.tipoPessoa = tipoPessoa;
     }
 
     // Getters e Setters
@@ -87,6 +92,14 @@ public class Pessoa {
         this.telefone = telefone;
     }
 
+    public String getTipoPessoa() {
+        return tipoPessoa;
+    }
+
+    public void setTipoPessoa(String tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
+    }
+
     /**
      * Retorna uma representação em string da pessoa.
      * 
@@ -94,6 +107,6 @@ public class Pessoa {
      */
     @Override
     public String toString() {
-        return "Nome: " + nome + "\nEndereço: " + endereco + "\nTelefone: " + telefone;
+        return "Nome: " + nome + "\nEndereço: " + endereco + "\nTelefone: " + telefone + "\nTipo de Pessoa: " + tipoPessoa;
     }
 }

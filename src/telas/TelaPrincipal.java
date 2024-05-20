@@ -1,74 +1,79 @@
-package telas; // Pacote que contém a classe TelaPrincipal
+package telas;
 
-import javax.swing.*; // Importação da classe Swing
-import java.awt.*; // Importação da classe AWT
-import java.awt.event.*; // Importação da classe de eventos
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
 
 /**
  * Classe que representa a tela principal da aplicação.
  */
-public class TelaPrincipal extends JFrame { // Classe TelaPrincipal que herda da classe JFrame
-   
-    private JButton btnCadastroPessoa; // Botão para cadastro de pessoa
-    private JButton btnCadastroVeiculo; // Botão para cadastro de veículo
-    private JButton btnAluguelVeiculo; // Botão para aluguel de veículo
+public class TelaPrincipal extends JFrame {
 
-    public TelaPrincipal() { // Construtor da classe TelaPrincipal
-        
-        setTitle("Tela Principal"); // Define o título da janela
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Define o comportamento ao fechar a janela
-        setSize(400, 300); // Define o tamanho da janela
-        setLocationRelativeTo(null); // Define a posição da janela como centralizada
+    private JButton btnCadastroCliente;
+    private JButton btnCadastroVeiculo;
+    private JButton btnAluguelVeiculo;
 
-        JPanel mainPanel = new JPanel(); // Painel principal
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS)); // Define o layout do painel principal
-        add(mainPanel); // Adiciona o painel principal à janela
+    public TelaPrincipal() {
+        setTitle("Tela Principal");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 300);
+        setLocationRelativeTo(null);
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Painel para os botões
-        mainPanel.add(buttonPanel); // Adiciona o painel de botões ao painel principal
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        add(mainPanel);
 
-        btnCadastroPessoa = new JButton("Cadastro de Pessoa"); // Botão para cadastro de pessoa
-        btnCadastroVeiculo = new JButton("Cadastro de Veículo"); // Botão para cadastro de veículo
-        btnAluguelVeiculo = new JButton("Aluguel de Veículo"); // Botão para aluguel de veículo
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        mainPanel.add(buttonPanel);
 
-        buttonPanel.add(btnCadastroPessoa); // Adiciona o botão de cadastro de pessoa ao painel de botões
-        buttonPanel.add(btnCadastroVeiculo); // Adiciona o botão de cadastro de veículo ao painel de botões
-        buttonPanel.add(btnAluguelVeiculo); // Adiciona o botão de aluguel de veículo ao painel de botões
+        btnCadastroCliente = new JButton("Cadastro de Cliente");
+        btnCadastroVeiculo = new JButton("Cadastro de Veículo");
+        btnAluguelVeiculo = new JButton("Aluguel de Veículo");
 
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(50, 10, 10, 10)); // Define a borda do painel principal
+        buttonPanel.add(btnCadastroCliente);
+        buttonPanel.add(btnCadastroVeiculo);
+        buttonPanel.add(btnAluguelVeiculo);
 
-        Dimension buttonSize = new Dimension(200, 40); // Define o tamanho dos botões
-        btnCadastroPessoa.setPreferredSize(buttonSize); // Define o tamanho do botão de cadastro de pessoa
-        btnCadastroVeiculo.setPreferredSize(buttonSize); // Define o tamanho do botão de cadastro de veículo
-        btnAluguelVeiculo.setPreferredSize(buttonSize); // Define o tamanho do botão de aluguel de veículo
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(50, 10, 10, 10));
 
-        btnCadastroPessoa.addActionListener(new ActionListener() { // Adiciona um ouvinte de ação ao botão de cadastro de pessoa
+        Dimension buttonSize = new Dimension(200, 40);
+        btnCadastroCliente.setPreferredSize(buttonSize);
+        btnCadastroVeiculo.setPreferredSize(buttonSize);
+        btnAluguelVeiculo.setPreferredSize(buttonSize);
+
+        btnCadastroCliente.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                TelaCadastroPessoa telaCadastroPessoa = new TelaCadastroPessoa(); // Cria uma instância da classe TelaCadastroPessoa
-                telaCadastroPessoa.setVisible(true); // Torna a tela de cadastro de pessoa visível
+                TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente();
+                telaCadastroCliente.setVisible(true);
+                
             }
         });
 
-        btnCadastroVeiculo.addActionListener(new ActionListener() { // Adiciona um ouvinte de ação ao botão de cadastro de veículo
+        btnCadastroVeiculo.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                TelaCadastroVeiculo telaCadastroVeiculo = new TelaCadastroVeiculo(); // Cria uma instância da classe TelaCadastroVeiculo
-                telaCadastroVeiculo.setVisible(true); // Torna a tela de cadastro de veículo visível
+                TelaCadastroVeiculo telaCadastroVeiculo = new TelaCadastroVeiculo();
+                telaCadastroVeiculo.setVisible(true);
             }
         });
 
-        btnAluguelVeiculo.addActionListener(new ActionListener() { // Adiciona um ouvinte de ação ao botão de aluguel de veículo
+        btnAluguelVeiculo.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                TelaAluguelVeiculo telaAluguelVeiculo = new TelaAluguelVeiculo(); // Cria uma instância da classe TelaAluguelVeiculo
-                telaAluguelVeiculo.setVisible(true); // Torna a tela de aluguel de veículo visível
+                TelaAluguelVeiculo telaAluguelVeiculo = new TelaAluguelVeiculo();
+                telaAluguelVeiculo.setVisible(true);
             }
         });
     }
 
-    public static void main(String[] args) { // Método principal
-        SwingUtilities.invokeLater(new Runnable() { // Cria uma nova thread para executar a interface gráfica
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                TelaPrincipal telaPrincipal = new TelaPrincipal(); // Cria uma instância da classe TelaPrincipal
-                telaPrincipal.setVisible(true); // Torna a tela principal visível
+                TelaPrincipal telaPrincipal = new TelaPrincipal();
+                telaPrincipal.setVisible(true);
             }
         });
     }

@@ -3,30 +3,34 @@ package telas;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import cadastro.CadastroPessoa;
+import cadastro.CadastroCliente;
 
 /**
- * Classe responsável por exibir a tela de cadastro de pessoa.
+ * Classe responsável por exibir a tela de cadastro de cliente.
  */
-public class TelaCadastroPessoa extends JFrame {
+public class TelaCadastroCliente extends JFrame {
+
     private JTextField nomeTextField;
     private JTextField enderecoTextField;
     private JTextField telefoneTextField;
-    private CadastroPessoa cadastroPessoa;
+    private JRadioButton pessoaFisicaRadioButton;
+    private JRadioButton pessoaJuridicaRadioButton;
+    private ButtonGroup tipoPessoaButtonGroup;
+    private CadastroCliente cadastroCliente;
 
-    public TelaCadastroPessoa() {
-        cadastroPessoa = new CadastroPessoa();
+    public TelaCadastroCliente() {
+        cadastroCliente = new CadastroCliente(); // Assuming CadastroCliente handles PJ/PF logic
 
-        setTitle("Cadastro de Pessoa");
+        setTitle("Cadastro de Cliente");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(5, 2, 0, 6));
-        
+        mainPanel.setLayout(new GridLayout(6, 2, 0, 6));
+
         mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-        
+
         Font font = new Font("Arial", Font.PLAIN, 12);
 
         JLabel nomeLabel = new JLabel("Nome:");
@@ -50,12 +54,25 @@ public class TelaCadastroPessoa extends JFrame {
         mainPanel.add(telefoneLabel);
         mainPanel.add(telefoneTextField);
 
+        // Radio Button Group for type selection
+        tipoPessoaButtonGroup = new ButtonGroup();
+
+        pessoaFisicaRadioButton = new JRadioButton("Pessoa Física");
+        pessoaFisicaRadioButton.setFont(font);
+        tipoPessoaButtonGroup.add(pessoaFisicaRadioButton);
+        mainPanel.add(pessoaFisicaRadioButton);
+
+        pessoaJuridicaRadioButton = new JRadioButton("Pessoa Jurídica");
+        pessoaJuridicaRadioButton.setFont(font);
+        tipoPessoaButtonGroup.add(pessoaJuridicaRadioButton);
+        mainPanel.add(pessoaJuridicaRadioButton);
+
         JButton cadastrarButton = new JButton("Cadastrar");
         cadastrarButton.setFont(font);
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cadastrarPessoa();
+                cadastrarCliente();
             }
         });
         mainPanel.add(cadastrarButton);
@@ -77,17 +94,30 @@ public class TelaCadastroPessoa extends JFrame {
         setVisible(true);
     }
 
-    private void cadastrarPessoa() {
+    private void cadastrarCliente() {
         String nome = nomeTextField.getText();
         String endereco = enderecoTextField.getText();
         String telefone = telefoneTextField.getText();
+        String tipoPessoa = null; // Initialize
 
         if (nome.isEmpty() || endereco.isEmpty() || telefone.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (pessoaFisicaRadioButton.isSelected()) {
+            tipoPessoa = "PF"; // Assign "PF" for Pessoa Física
+        } else if (pessoaJuridicaRadioButton.isSelected()) {
+            tipoPessoa = "PJ"; // Assign "PJ" for Pessoa Jurídica
+        }
+
+        // Validation (optional)
+        if (tipoPessoa == null) {
+            JOptionPane.showMessageDialog(this, "Selecione o tipo de pessoa.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        cadastroPessoa.cadastrarPessoa(nome, endereco, telefone);
+        cadastroCliente.cadastrarCliente(nome, endereco, telefone, tipoPessoa); // Pass typePessoa to CadastroCliente
 
         JOptionPane.showMessageDialog(this, "Pessoa cadastrada com sucesso!");
     }
@@ -96,7 +126,7 @@ public class TelaCadastroPessoa extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new TelaCadastroPessoa();
+                new TelaCadastroCliente();
             }
         });
     }
