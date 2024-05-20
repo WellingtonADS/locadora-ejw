@@ -3,6 +3,7 @@ package cadastro;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Aluguel;
+import modelo.Cliente;
 
 /**
  * Classe responsável por realizar o cadastro de aluguéis na locadora.

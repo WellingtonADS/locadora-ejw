@@ -47,13 +47,13 @@ public class Aluguel {
         this.dataFim = dataFim;
     }
 
+
     @Override
     public String toString() {
-        return "Aluguel{" +
-               "cliente=" + cliente +
-               ", veiculo=" + veiculo +
-               ", dataInicio=" + dataInicio +
-               ", dataFim=" + dataFim +
-               '}';
+        return "Aluguel{" + "cliente=" + cliente +
+                ", veiculo=" + veiculo +
+                ", dataInicio=" + dataInicio +
+                ", dataFim=" + dataFim +
+                '}';
     }
 }
