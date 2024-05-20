@@ -59,7 +59,7 @@ public class TelaCadastroVeiculo extends JFrame {
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cadastrarVeiculo();
+                adicionarVeiculo();
             }
         });
         mainPanel.add(cadastrarButton);
@@ -81,18 +81,26 @@ public class TelaCadastroVeiculo extends JFrame {
         setVisible(true);
     }
 
-    private void cadastrarVeiculo() {
+    private void adicionarVeiculo() {
         String modelo = modeloTextField.getText();
         String marca = marcaTextField.getText();
-        int ano = Integer.parseInt(anoTextField.getText());
-        double valorDiaria = Double.parseDouble(valorTextField.getText());
+        int ano = 0;
+        double valorDiaria = 0.0;
+
+        try {
+            ano = Integer.parseInt(anoTextField.getText());
+            valorDiaria = Double.parseDouble(valorTextField.getText());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Ano e Valor da Diária devem ser números válidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         if (modelo.isEmpty() || marca.isEmpty() || anoTextField.getText().isEmpty() || valorTextField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        cadastroVeiculo.cadastrarVeiculo(modelo, marca, ano, valorDiaria);
+        cadastroVeiculo.adicionarVeiculo(modelo, marca, ano, valorDiaria);
 
         JOptionPane.showMessageDialog(this, "Veículo cadastrado com sucesso!");
     }

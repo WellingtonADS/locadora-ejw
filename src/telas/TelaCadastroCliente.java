@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import cadastro.CadastroCliente;
+import modelo.Cliente;
 
 /**
  * Classe responsável por exibir a tela de cadastro de cliente.
@@ -19,7 +20,7 @@ public class TelaCadastroCliente extends JFrame {
     private CadastroCliente cadastroCliente;
 
     public TelaCadastroCliente() {
-        cadastroCliente = new CadastroCliente(); // Assuming CadastroCliente handles PJ/PF logic
+        cadastroCliente = new CadastroCliente();
 
         setTitle("Cadastro de Cliente");
         setSize(400, 300);
@@ -72,7 +73,7 @@ public class TelaCadastroCliente extends JFrame {
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cadastrarCliente();
+                adicionarCliente();
             }
         });
         mainPanel.add(cadastrarButton);
@@ -94,11 +95,11 @@ public class TelaCadastroCliente extends JFrame {
         setVisible(true);
     }
 
-    private void cadastrarCliente() {
+    private void adicionarCliente() {
         String nome = nomeTextField.getText();
         String endereco = enderecoTextField.getText();
         String telefone = telefoneTextField.getText();
-        String tipoPessoa = null; // Initialize
+        String tipoPessoa = null; // Inicializa
 
         if (nome.isEmpty() || endereco.isEmpty() || telefone.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos.", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -106,20 +107,21 @@ public class TelaCadastroCliente extends JFrame {
         }
         
         if (pessoaFisicaRadioButton.isSelected()) {
-            tipoPessoa = "PF"; // Assign "PF" for Pessoa Física
+            tipoPessoa = "PF"; // Atribui "PF" para Pessoa Física
         } else if (pessoaJuridicaRadioButton.isSelected()) {
-            tipoPessoa = "PJ"; // Assign "PJ" for Pessoa Jurídica
+            tipoPessoa = "PJ"; // Atribui "PJ" para Pessoa Jurídica
         }
 
-        // Validation (optional)
+        // Validação (opcional)
         if (tipoPessoa == null) {
             JOptionPane.showMessageDialog(this, "Selecione o tipo de pessoa.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        cadastroCliente.cadastrarCliente(nome, endereco, telefone, tipoPessoa); // Pass typePessoa to CadastroCliente
+        Cliente cliente = new Cliente(nome, endereco, telefone, tipoPessoa);
+        cadastroCliente.adicionarCliente(cliente);
 
-        JOptionPane.showMessageDialog(this, "Pessoa cadastrada com sucesso!");
+        JOptionPane.showMessageDialog(this, "Cliente adicionado com sucesso!");
     }
 
     public static void main(String[] args) {

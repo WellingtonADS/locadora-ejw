@@ -36,12 +36,12 @@ public class CadastroCliente {
 
     /**
      * Busca um cliente pelo nome completo.
-     * @param nomeCompleto O nome completo do cliente a ser buscado.
+     * @param nome O nome completo do cliente a ser buscado.
      * @return O cliente encontrado, ou null se não encontrado.
      */
-    public Cliente buscarClientePorNome(String nomeCompleto) {
+    public Cliente buscarClientePorNome(String nome) {
         for (Cliente cliente : clientes) {
-            if (cliente.getNome().equalsIgnoreCase(nomeCompleto)) {
+            if (cliente.getNome().equalsIgnoreCase(nome)) {
                 return cliente;
             }
         }

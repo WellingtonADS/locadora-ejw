@@ -18,11 +18,9 @@ public class CadastroVeiculo {
         veiculos = new ArrayList<>();
     }
 
-    /**
-     * Adiciona um veículo à lista de veículos cadastrados.
-     * @param veiculo O veículo a ser adicionado.
-     */
-    public void adicionarVeiculo(Veiculo veiculo) {
+    
+    public void adicionarVeiculo(String modelo, String marca, int ano, double valorDiaria) {
+        Veiculo veiculo = new Veiculo(modelo, marca, ano, valorDiaria);
         veiculos.add(veiculo);
     }
 
@@ -35,14 +33,13 @@ public class CadastroVeiculo {
     }
 
     /**
-     * Busca um veículo pelo modelo e marca.
+     * Busca um veículo pelo modelo.
      * @param modelo O modelo do veículo a ser buscado.
-     * @param marca A marca do veículo a ser buscado.
      * @return O veículo encontrado, ou null se não encontrado.
      */
-    public Veiculo buscarVeiculo(String modelo, String marca) {
+    public Veiculo buscarVeiculoPorModelo(String modelo) {
         for (Veiculo veiculo : veiculos) {
-            if (veiculo.getModelo().equalsIgnoreCase(modelo) && veiculo.getMarca().equalsIgnoreCase(marca)) {
+            if (veiculo.getModelo().equalsIgnoreCase(modelo)) {
                 return veiculo;
             }
         }
@@ -74,4 +71,6 @@ public class CadastroVeiculo {
             System.out.println(veiculo);
         }
     }
+
+    
 }
