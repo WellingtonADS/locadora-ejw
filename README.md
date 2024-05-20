@@ -23,7 +23,7 @@ O projeto é dividido em pacotes conforme a funcionalidade:
 
 ### Como Executar o Projeto
 
-1. Certifique-se de ter o Java JDK instalado em sua máquina.
+1. Certifique-se de ter o Java JDK 22 instalado em sua máquina.
 2. Clone este repositório.
 3. Abra o projeto em sua IDE Java preferida.
 4. Execute a classe `TelaPrincipal.java` para iniciar a aplicação.
