@@ -22,8 +22,8 @@ public class TesteAluguel {
         System.out.println("Cliente: " + cliente.getNome());
         System.out.println("Tipo de Pessoa: " + cliente.getTipoPessoa());
         System.out.println("Veículo: " + aluguel.getVeiculo());
-        System.out.println("Data de Início: " + aluguel.getDataInicio());
-        System.out.println("Data de Fim: " + aluguel.getDataFim());      
+        System.out.println("Data de Início do Aluguel: " + aluguel.getDataInicio());
+        System.out.println("Data de Fim do Aluguel: " + aluguel.getDataFim());      
         
     }
 }

@@ -89,6 +89,7 @@ public class TelaAluguelVeiculo extends JFrame {
         setVisible(true);
     }
 
+    @SuppressWarnings("unused")
     private void alugarVeiculo() {
         String pessoaSelecionada = (String) pessoaComboBox.getSelectedItem();
         String veiculoSelecionado = (String) veiculoComboBox.getSelectedItem();
@@ -114,6 +115,7 @@ public class TelaAluguelVeiculo extends JFrame {
 
         LocalDate dataInicio;
         LocalDate dataFim;
+        
         try {
             dataInicio = LocalDate.parse(dataInicioStr);
             dataFim = LocalDate.parse(dataFimStr);
