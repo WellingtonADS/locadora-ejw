@@ -1,8 +1,8 @@
+package telas;
 /**
  * Classe responsável por exibir a tela de cadastro de clientes e gerenciar as ações dos botões e campos de entrada.
  * Esta classe estende a classe JFrame e implementa a interface ActionListener.
  */
-package telas;
 
 import cadastro.CadastroCliente;
 import modelo.Cliente;
@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TelaCadastroCliente extends JFrame {
+
     private JTextField nomeTextField; // Campo de texto para o nome do cliente
     private JTextField enderecoTextField; // Campo de texto para o endereço do cliente
     private JTextField telefoneTextField; // Campo de texto para o telefone do cliente
@@ -126,7 +127,7 @@ public class TelaCadastroCliente extends JFrame {
         mainPanel.add(formPanel, BorderLayout.NORTH); // Adiciona o painel de campos e botões ao painel principal
 
         // Configuração da tabela de clientes
-        String[] colunas = {"Nome", "Endereço", "Telefone", "Tipo Pessoa"}; // Array com os nomes das colunas
+        String[] colunas = { "Nome", "Endereço", "Telefone", "Tipo Pessoa" }; // Array com os nomes das colunas
         tableModel = new DefaultTableModel(colunas, 0); // Cria o modelo da tabela
         clientesTable = new JTable(tableModel); // Cria a tabela com base no modelo
         JScrollPane scrollPane = new JScrollPane(clientesTable); // Cria um painel de rolagem para a tabela
@@ -176,37 +177,45 @@ public class TelaCadastroCliente extends JFrame {
     private void removerCliente() {
         int selectedRow = clientesTable.getSelectedRow(); // Obtém a linha selecionada na tabela
         if (selectedRow != -1) {
-            Cliente clienteRemover = cadastroCliente.getListaClientes().get(selectedRow); // Obtém o cliente a ser removido
+            Cliente clienteRemover = cadastroCliente.getListaClientes().get(selectedRow); // Obtém o cliente a ser
+                                                                                          // removido
             cadastroCliente.removerCliente(clienteRemover.getNome()); // Remove o cliente do cadastro
             atualizarTabela(); // Atualiza a tabela
             limparCampos(); // Limpa os campos de entrada
             JOptionPane.showMessageDialog(this, "Cliente removido com sucesso!"); // Exibe uma mensagem de sucesso
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um cliente para remover.",
-                    "Erro", JOptionPane.ERROR_MESSAGE); // Exibe uma mensagem de erro se nenhum cliente estiver selecionado
+                    "Erro", JOptionPane.ERROR_MESSAGE); // Exibe uma mensagem de erro se nenhum cliente estiver
+                                                        // selecionado
         }
     }
 
     private void atualizarCliente() {
         int selectedRow = clientesTable.getSelectedRow(); // Obtém a linha selecionada na tabela
         if (selectedRow != -1) {
-            String nomeAntigo = cadastroCliente.getListaClientes().get(selectedRow).getNome(); // Obtém o nome do cliente selecionado
+            String nomeAntigo = cadastroCliente.getListaClientes().get(selectedRow).getNome(); // Obtém o nome do
+                                                                                               // cliente selecionado
             String nome = nomeTextField.getText(); // Obtém o novo nome do campo de texto
             String endereco = enderecoTextField.getText(); // Obtém o novo endereço do campo de texto
             String telefone = telefoneTextField.getText(); // Obtém o novo telefone do campo de texto
-            String tipoPessoa = pessoaFisicaRadioButton.isSelected() ? "Pessoa Física" : "Pessoa Jurídica"; // Obtém o novo tipo de pessoa
+            String tipoPessoa = pessoaFisicaRadioButton.isSelected() ? "Pessoa Física" : "Pessoa Jurídica"; // Obtém o
+                                                                                                            // novo tipo
+                                                                                                            // de pessoa
 
-            Cliente clienteAtualizado = new Cliente(nome, endereco, telefone, tipoPessoa); // Cria um novo cliente atualizado
+            Cliente clienteAtualizado = new Cliente(nome, endereco, telefone, tipoPessoa); // Cria um novo cliente
+                                                                                           // atualizado
             if (cadastroCliente.atualizarCliente(nomeAntigo, clienteAtualizado)) { // Atualiza o cliente no cadastro
                 atualizarTabela(); // Atualiza a tabela
                 JOptionPane.showMessageDialog(this, "Cliente atualizado com sucesso!"); // Exibe uma mensagem de sucesso
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao atualizar cliente.",
-                        "Erro", JOptionPane.ERROR_MESSAGE); // Exibe uma mensagem de erro se ocorrer algum problema na atualização
+                        "Erro", JOptionPane.ERROR_MESSAGE); // Exibe uma mensagem de erro se ocorrer algum problema na
+                                                            // atualização
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um cliente para editar.",
-                    "Erro", JOptionPane.ERROR_MESSAGE); // Exibe uma mensagem de erro se nenhum cliente estiver selecionado
+                    "Erro", JOptionPane.ERROR_MESSAGE); // Exibe uma mensagem de erro se nenhum cliente estiver
+                                                        // selecionado
         }
     }
 
@@ -217,15 +226,17 @@ public class TelaCadastroCliente extends JFrame {
     }
 
     private void adicionarNaTabela(Cliente cliente) {
-        tableModel.addRow(new Object[]{cliente.getNome(), cliente.getEndereco(),
-                cliente.getTelefone(), cliente.getTipoPessoa()}); // Adiciona uma nova linha à tabela com os dados do cliente
+        tableModel.addRow(new Object[] { cliente.getNome(), cliente.getEndereco(),
+                cliente.getTelefone(), cliente.getTipoPessoa() }); // Adiciona uma nova linha à tabela com os dados do
+                                                                   // cliente
     }
 
     private void atualizarTabela() {
         tableModel.setRowCount(0); // Limpa a tabela
         for (Cliente cliente : cadastroCliente.getListaClientes()) {
-            tableModel.addRow(new Object[]{cliente.getNome(), cliente.getEndereco(),
-                    cliente.getTelefone(), cliente.getTipoPessoa()}); // Adiciona uma nova linha à tabela com os dados de cada cliente
+            tableModel.addRow(new Object[] { cliente.getNome(), cliente.getEndereco(),
+                    cliente.getTelefone(), cliente.getTipoPessoa() }); // Adiciona uma nova linha à tabela com os dados
+                                                                       // de cada cliente
         }
     }
 
@@ -246,7 +257,6 @@ public class TelaCadastroCliente extends JFrame {
         telefoneTextField.setText(""); // Limpa o campo de telefone
         tipoPessoaButtonGroup.clearSelection(); // Limpa a seleção dos botões de rádio
     }
-    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
