@@ -1,9 +1,9 @@
 package telas;
 
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.*;//importa todas as classes do pacote javax.swing
+import java.awt.*;//importa todas as classes do pacote java.awt
+import java.awt.event.*;//importa todas as classes do pacote java.awt.event
 
 
 

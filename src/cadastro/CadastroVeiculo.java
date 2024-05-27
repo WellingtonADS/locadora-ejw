@@ -1,10 +1,9 @@
 package cadastro;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import modelo.Veiculo;
-
-
 
 public class CadastroVeiculo {
     private List<Veiculo> veiculos;
@@ -18,9 +17,19 @@ public class CadastroVeiculo {
         veiculos.add(veiculo);
     }
 
-    public void removerVeiculo(String modelo, String marca, int ano, double valorDiaria) {
-        Veiculo veiculo = new Veiculo(modelo, marca, ano, valorDiaria);
-        veiculos.remove(veiculo);
+    public boolean removerVeiculo(String modelo, String marca, int ano, double valorDiaria) {
+        Iterator<Veiculo> iterator = veiculos.iterator();
+        while (iterator.hasNext()) {
+            Veiculo veiculo = iterator.next();
+            if (veiculo.getModelo().equalsIgnoreCase(modelo) &&
+                veiculo.getMarca().equalsIgnoreCase(marca) &&
+                veiculo.getAno() == ano &&
+                veiculo.getValorDiaria() == valorDiaria) {
+                iterator.remove();
+                return true;
+            }
+        }
+        return false;
     }
 
     public Veiculo buscarVeiculoPorModelo(String modelo) {
@@ -30,11 +39,6 @@ public class CadastroVeiculo {
             }
         }
         return null;
-    }
-
-    public void atualizarVeiculo(String modelo, String marca, int ano, double valorDiaria) {
-        Veiculo veiculo = new Veiculo(modelo, marca, ano, valorDiaria);
-        veiculos.add(veiculo);
     }
 
     public boolean atualizarVeiculo(Veiculo veiculoAtualizado) {
@@ -49,13 +53,21 @@ public class CadastroVeiculo {
         return false;
     }
 
+    public List<Veiculo> getVeiculos() {
+        return veiculos;
+    }
+
     public void exibirVeiculos() {
         for (Veiculo veiculo : veiculos) {
             System.out.println(veiculo);
         }
     }
 
-    
+    public List<Veiculo> getListaVeiculos() {
+        return veiculos;
+    }
 
-    
+    public void adicionarVeiculo(Veiculo veiculo) {
+        veiculos.add(veiculo);
+    }
 }

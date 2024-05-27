@@ -1,14 +1,14 @@
 package modelo;
 
-public class Veiculo {
+import java.util.Objects;
 
+public class Veiculo {
     private String modelo;
     private String marca;
     private int ano;
     private double valorDiaria;
 
-    public Veiculo() {
-    }
+    public Veiculo() {}
 
     public Veiculo(String modelo, String marca, int ano, double valorDiaria) {
         this.modelo = modelo;
@@ -57,5 +57,21 @@ public class Veiculo {
                 ", ano=" + ano +
                 ", valorDiaria=" + valorDiaria +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Veiculo veiculo = (Veiculo) o;
+        return ano == veiculo.ano &&
+               Double.compare(veiculo.valorDiaria, valorDiaria) == 0 &&
+               Objects.equals(modelo, veiculo.modelo) &&
+               Objects.equals(marca, veiculo.marca);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(modelo, marca, ano, valorDiaria);
     }
 }

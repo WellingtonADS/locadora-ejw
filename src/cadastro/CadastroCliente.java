@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import modelo.Cliente;
 
-
-
 public class CadastroCliente {
     private List<Cliente> clientes;
 
@@ -17,8 +15,13 @@ public class CadastroCliente {
         clientes.add(cliente);
     }
 
-    public void removerCliente(Cliente cliente) {
-        clientes.remove(cliente);
+    public boolean removerCliente(String nome) {
+        Cliente cliente = buscarClientePorNome(nome);
+        if (cliente != null) {
+            clientes.remove(cliente);
+            return true;
+        }
+        return false;
     }
 
     public Cliente buscarClientePorNome(String nome) {
@@ -30,10 +33,10 @@ public class CadastroCliente {
         return null;
     }
 
-    public boolean atualizarCliente(Cliente clienteAtualizado) {
+    public boolean atualizarCliente(String nomeAntigo, Cliente clienteAtualizado) {
         for (int i = 0; i < clientes.size(); i++) {
             Cliente cliente = clientes.get(i);
-            if (cliente.getNome().equalsIgnoreCase(clienteAtualizado.getNome())) {
+            if (cliente.getNome().equalsIgnoreCase(nomeAntigo)) {
                 clientes.set(i, clienteAtualizado);
                 return true;
             }
@@ -41,9 +44,11 @@ public class CadastroCliente {
         return false;
     }
 
-    public void exibirClientes() {
-        for (Cliente cliente : clientes) {
-            System.out.println(cliente);
-        }
+    public List<Cliente> getListaClientes() {
+        return clientes;
+    }
+
+    public Cliente[] getClientes() {
+        return clientes.toArray(new Cliente[0]);
     }
 }

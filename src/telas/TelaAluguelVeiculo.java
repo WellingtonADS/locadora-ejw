@@ -9,31 +9,31 @@ import modelo.Cliente;
 import modelo.Veiculo;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 public class TelaAluguelVeiculo extends JFrame {
-    private JComboBox<String> pessoaComboBox;
-    private JComboBox<String> veiculoComboBox;
+    private JComboBox<Cliente> pessoaComboBox;
+    private JComboBox<Veiculo> veiculoComboBox;
     private JTextField dataInicioTextField;
     private JTextField dataFimTextField;
+    private JTextField valorDiariaTextField;
+    private JTextField valorTextField;
     private JButton confirmarButton;
     private JButton voltarButton;
     private CadastroCliente cadastroCliente;
     private CadastroVeiculo cadastroVeiculo;
 
-    /**
-     * 
-     */
     public TelaAluguelVeiculo() {
         cadastroCliente = new CadastroCliente();
         cadastroVeiculo = new CadastroVeiculo();
 
         setTitle("Aluguel de Veículo");
-        setSize(400, 300);
+        setSize(400, 350); // Ajuste para acomodar os novos campos
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(5, 2, 0, 6));
+        mainPanel.setLayout(new GridLayout(7, 2, 0, 6)); // Ajuste para incluir os novos campos
         mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
         Font font = new Font("Arial", Font.PLAIN, 12);
@@ -49,6 +49,12 @@ public class TelaAluguelVeiculo extends JFrame {
         veiculoLabel.setFont(font);
         veiculoComboBox = new JComboBox<>();
         popularComboBoxVeiculos(); // Preenche o combo box de veículos
+        veiculoComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarDiariaVeiculoSelecionado();
+            }
+        });
         mainPanel.add(veiculoLabel);
         mainPanel.add(veiculoComboBox);
 
@@ -61,6 +67,18 @@ public class TelaAluguelVeiculo extends JFrame {
         dataFimTextField = new JTextField();
         mainPanel.add(dataFimLabel);
         mainPanel.add(dataFimTextField);
+
+        JLabel valorDiariaLabel = new JLabel("Valor Diária:");
+        valorDiariaTextField = new JTextField();
+        valorDiariaTextField.setEditable(false); // Campo de texto apenas para exibição
+        mainPanel.add(valorDiariaLabel);
+        mainPanel.add(valorDiariaTextField);
+
+        JLabel valorLabel = new JLabel("Valor Total:");
+        valorTextField = new JTextField();
+        valorTextField.setEditable(false); // Campo de texto apenas para exibição
+        mainPanel.add(valorLabel);
+        mainPanel.add(valorTextField);
 
         confirmarButton = new JButton("Confirmar Aluguel");
         confirmarButton.setFont(font);
@@ -89,33 +107,20 @@ public class TelaAluguelVeiculo extends JFrame {
         setVisible(true);
     }
 
-    @SuppressWarnings("unused")
     private void alugarVeiculo() {
-        String pessoaSelecionada = (String) pessoaComboBox.getSelectedItem();
-        String veiculoSelecionado = (String) veiculoComboBox.getSelectedItem();
+        Cliente clienteSelecionado = (Cliente) pessoaComboBox.getSelectedItem();
+        Veiculo veiculoSelecionado = (Veiculo) veiculoComboBox.getSelectedItem();
         String dataInicioStr = dataInicioTextField.getText();
         String dataFimStr = dataFimTextField.getText();
 
-        if (pessoaSelecionada == null || veiculoSelecionado == null || dataInicioStr.isEmpty() || dataFimStr.isEmpty()) {
+        if (clienteSelecionado == null || veiculoSelecionado == null || dataInicioStr.isEmpty() || dataFimStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Cliente cliente = cadastroCliente.buscarClientePorNome(pessoaSelecionada);
-        if (cliente == null) {
-            JOptionPane.showMessageDialog(this, "Cliente não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Veiculo veiculo = cadastroVeiculo.buscarVeiculoPorModelo(veiculoSelecionado);
-        if (veiculo == null) {
-            JOptionPane.showMessageDialog(this, "Veículo não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         LocalDate dataInicio;
         LocalDate dataFim;
-        
+
         try {
             dataInicio = LocalDate.parse(dataInicioStr);
             dataFim = LocalDate.parse(dataFimStr);
@@ -124,26 +129,50 @@ public class TelaAluguelVeiculo extends JFrame {
             return;
         }
 
-        // Aqui você poderia fazer o processo de aluguel utilizando as informações obtidas
-        // Por exemplo, criar um objeto Aluguel e manipular as classes de cadastro
+        // Calcular número de dias de aluguel
+        long diasAluguel = ChronoUnit.DAYS.between(dataInicio, dataFim) + 1; // +1 porque inclui o último dia
 
-        JOptionPane.showMessageDialog(this, "Aluguel confirmado com sucesso!");
+        // Validar se o número de dias de aluguel é válido
+        if (diasAluguel <= 0) {
+            JOptionPane.showMessageDialog(this, "Data de fim deve ser posterior à data de início.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Calcular valor total do aluguel
+        double valorTotal = diasAluguel * veiculoSelecionado.getValorDiaria();
+
+        // Atualizar os campos de texto com os valores calculados
+        valorDiariaTextField.setText(String.format("R$ %.2f", veiculoSelecionado.getValorDiaria()));
+        valorTextField.setText(String.format("R$ %.2f", valorTotal));
+
+        // Exibir mensagem de confirmação
+        JOptionPane.showMessageDialog(this, String.format("Aluguel confirmado com sucesso!\n\n" +
+                "Veículo: %s\n" +
+                "Valor da Diária: R$ %.2f\n" +
+                "Número de Dias: %d\n" +
+                "Valor Total: R$ %.2f",
+                veiculoSelecionado.getModelo(), veiculoSelecionado.getValorDiaria(), diasAluguel, valorTotal));
     }
 
     private void popularComboBoxClientes() {
-        // Simulação: Adiciona alguns clientes ao combo box
-        pessoaComboBox.addItem("João");
-        pessoaComboBox.addItem("Maria");
-        pessoaComboBox.addItem("José");
-        pessoaComboBox.addItem("Ana");
+        // Obter clientes do cadastro e adicioná-los ao combo box
+        for (Cliente cliente : cadastroCliente.getClientes()) {
+            pessoaComboBox.addItem(cliente);
+        }
     }
 
     private void popularComboBoxVeiculos() {
-        // Simulação: Adiciona alguns veículos ao combo box
-        veiculoComboBox.addItem("Gol");
-        veiculoComboBox.addItem("Onix");
-        veiculoComboBox.addItem("Corolla");
-        veiculoComboBox.addItem("HB20");
+        // Obter veículos do cadastro e adicioná-los ao combo box
+        for (Veiculo veiculo : cadastroVeiculo.getVeiculos()) {
+            veiculoComboBox.addItem(veiculo);
+        }
+    }
+
+    private void mostrarDiariaVeiculoSelecionado() {
+        Veiculo veiculoSelecionado = (Veiculo) veiculoComboBox.getSelectedItem();
+        if (veiculoSelecionado != null) {
+            valorDiariaTextField.setText(String.format("R$ %.2f", veiculoSelecionado.getValorDiaria()));
+        }
     }
 
     public static void main(String[] args) {
