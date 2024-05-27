@@ -8,6 +8,9 @@ import modelo.Cliente;
 /**
  * Classe responsável por realizar o cadastro de aluguéis na locadora.
  */
+/**
+ * Classe responsável por gerenciar o cadastro de aluguéis.
+ */
 public class CadastroAluguel {
     private List<Aluguel> alugueis;
 

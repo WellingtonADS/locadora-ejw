@@ -1,3 +1,7 @@
+//
+// Cria a tela principal da aplicação, que contém botões para acessar as telas de cadastro de cliente, 
+//cadastro de veículo e aluguel de veículo.
+
 package telas;
 
 
